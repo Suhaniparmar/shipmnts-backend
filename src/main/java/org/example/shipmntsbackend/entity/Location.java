@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Setter
 @Getter
 @Entity
@@ -15,17 +18,19 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 @AllArgsConstructor
 public class Location {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(unique = true)
-    private String location_code;
-    private String parent_location_code;
+    private String locationCode;
+
+    private String parentLocationCode;
 
     @Enumerated(EnumType.STRING)
     private LocationType type;
 
-    public enum LocationType{ warehouse, storage}
+    @Transient
+    private List<Location> childs = new ArrayList<>();
 
-
+    public enum LocationType { warehouse, storage }
 }

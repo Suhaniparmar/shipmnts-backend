@@ -17,10 +17,10 @@ public class LocationService {
     }
 
     public String createLocation(Location location) {
-        if(locationRepo.existsBylocation_code(location.getLocation_code())){
+        if(locationRepo.existsByLocationCode(location.getLocationCode())){
             return "child location already exists";
         }
-        if(location.getParent_location_code()==null) {
+        if(location.getParentLocationCode()==null) {
             if (location.getType() != Location.LocationType.warehouse) {
                 return "parent must be warehouse";
             }
@@ -28,7 +28,7 @@ public class LocationService {
                 if(location.getType()!=Location.LocationType.storage){
                     return "child must be storage";
                 }
-                if(locationRepo.existsBylocation_code(location.getParent_location_code())){
+                if(locationRepo.existsByLocationCode(location.getParentLocationCode())){
                     return "parent location already exists";
                 }
 
